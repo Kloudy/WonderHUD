@@ -1,0 +1,15 @@
+hud-show-text: "HUD now visible"
+hud-hide-text: "HUD now hidden"
+hud-show-all-text: "HUDs now visible to all players"
+hud-hide-all-text: "HUDs now hidden from all players"
+
+max-players: 35 #Maximum number of players who can see the HUD at a time. Used to lessen the load caused when the plugin displays HUDs to many players at once
+
+hud-objects:
+
+  welcome-text:    # Format for defining a basic-hud (A HUD with just lines of text)
+    type: basic-hud                 # Specify the type as basic-hud
+    lines:                               # Lines of text to be displayed on the HUD (Use any valid placeholders supported by PlaceholderAPI)
+      - "Welcome |gray||bold|%player_name%|reset|, to |gold||bold|%player_server%"
+      - "Current Position: x: %player_x%, y: %player_y%, z: %player_z%"
+      - "|green||bold|Players Online|reset|: %server_online%"

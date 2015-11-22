@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+encoding//src/com/antarescraft/kloudy/wonderhud/HUD.java=UTF-8
+encoding//src/com/antarescraft/kloudy/wonderhud/imageprocessing/GifProcessor.java=UTF-8
+encoding//src/com/antarescraft/kloudy/wonderhud/imageprocessing/ImageProcessor.java=UTF-8
+encoding//src/com/antarescraft/kloudy/wonderhud/imageprocessing/MinecraftColor.java=UTF-8
+encoding//src/com/antarescraft/kloudy/wonderhud/imageprocessing/PngJpgProcessor.java=UTF-8
+encoding//src/com/antarescraft/kloudy/wonderhud/protocol/FakeDisplay.java=UTF-8

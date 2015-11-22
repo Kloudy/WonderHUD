@@ -1,0 +1,28 @@
+name: WonderHUD
+main: com.antarescraft.kloudy.wonderhud.WonderHUD
+version: 1.3
+author: Kloudy
+website: www.antarescraft.com
+
+depend: [ProtocolLib, PlaceholderAPI]
+
+commands:
+  wh:
+    description: used to define commands for the WonderHUD plugin
+
+permissions:
+  wh.*:
+    description: Gives access to all WonderHUD commands and features
+    children:
+      wh.admin: true
+      wh.see: true
+      wh.visibility: true
+  wh.admin:
+    description: Gives access to all WonderHUD admin commands
+    default: op
+  wh.see:
+    description: Allows a player to see the HUD when they log in
+    default: op
+  wh.visibility:
+    description: Allows a player to toggle the visibility of the HUD in front of them with command /wh hide and /wh show
+    default: op
