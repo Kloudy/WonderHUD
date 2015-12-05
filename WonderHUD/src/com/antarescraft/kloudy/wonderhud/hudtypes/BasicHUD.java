@@ -45,27 +45,27 @@ public class BasicHUD extends BaseHUDType
 	@Override
 	public double getOffsetAngle()
 	{
-		return Math.PI/6.2;
+		return Math.PI / 6.2;
 	}
 	
 	@Override
 	public ArrayList<String> getLines(Player player)
 	{
-		ArrayList<String> valueSubbedLines = new ArrayList<String>();
+		ArrayList<String> evaluatedLines = new ArrayList<String>();
 		
 		for(String line : lines)
 		{	
 			String str = PlaceholderAPI.setPlaceholders(player, line);
 			str = CustomPlaceholders.setCustomPlaceholders(str);
 			
-			valueSubbedLines.add(str);
+			evaluatedLines.add(str);
 		}
 		
-		if(valueSubbedLines.size() == 0)
+		if(evaluatedLines.size() == 0)
 		{
-			valueSubbedLines.add("Add text lines in the config file for this HUD");
+			evaluatedLines.add("Add text lines in the config file for this HUD");
 		}
 		
-		return valueSubbedLines;
+		return evaluatedLines;
 	}
 }

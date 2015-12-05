@@ -43,7 +43,7 @@ public class WonderHUD extends JavaPlugin
 		getCommand("wh").setExecutor(new OnCommandEvent());
 		getServer().getPluginManager().registerEvents(new OnPlayerJoinEvent(), this);
 		getServer().getPluginManager().registerEvents(new OnPlayerQuitEvent(), this);
-		getServer().getPluginManager().registerEvents(new OnMoveEvent(), this);
+		//getServer().getPluginManager().registerEvents(new OnMoveEvent(), this);
 		getServer().getPluginManager().registerEvents(new OnPlayerDeathEvent(), this);
 		getServer().getPluginManager().registerEvents(new OnPlayerRespawnEvent(), this);
 		getServer().getPluginManager().registerEvents(new OnPlayerChangeWorldEvent(), this);

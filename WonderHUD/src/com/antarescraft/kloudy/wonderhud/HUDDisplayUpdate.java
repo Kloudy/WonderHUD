@@ -11,6 +11,8 @@ import com.antarescraft.kloudy.wonderhud.protocol.FakeDisplay;
 
 public class HUDDisplayUpdate extends BukkitRunnable
 {
+	boolean updateDisplay = true;
+	
 	public void start()
 	{
 		this.runTaskTimer(WonderHUD.plugin, 0, 2);
@@ -27,10 +29,17 @@ public class HUDDisplayUpdate extends BukkitRunnable
 			{
 				for(HUD hud : playerHUD.getHUDs())
 				{
+					hud.evaluateLines();//evaluate placeholders
+					
 					for(int i = 0; i < hud.getHudType().getLines(hud.getPlayer()).size(); i++)
 					{
-						FakeDisplay.updateDisplayLine(hud, i, hud.getHudType().getLines(player).get(i));
+						if(hud.lineChanged(i))//don't send update packet if the line hasn't changed
+						{
+							FakeDisplay.updateDisplayLine(hud, i, hud.getEvaluatedLines().get(i));
+						}
 					}
+					
+					hud.updatePrevEvaluatedLines();//update prevEvaluated lines for comparison
 				}
 			}
 			else
@@ -52,6 +61,17 @@ public class HUDDisplayUpdate extends BukkitRunnable
 			{
 				ImageHUD imageHUD = (ImageHUD)hudType;
 				imageHUD.incrementCurrentFrame();
+			}
+		}
+			
+		for(PlayerHUD playerHUD : WonderHUD.PlayerHUDs.values())
+		{
+			for(HUD hud : playerHUD.getHUDs())
+			{
+				if(playerHUD.moved())
+				{
+					FakeDisplay.updateDisplayLocation(hud);
+				}
 			}
 		}
 	}

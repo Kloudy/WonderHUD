@@ -21,12 +21,15 @@ public class HUD
 	private ArrayList<Integer> entityIds;
 	private BaseHUDType hudType;
 	private int id;
+	private ArrayList<String> evaluatedLines;//List of current evaluated placeholder strings
+	private ArrayList<String> prevEvaluatedLines;//List of previous evaluated placeholder strings (used to see if lines have changed)
 	
 	public HUD(Player player, BaseHUDType hudType)
 	{
 		this.player = player;
 		this.hudType = hudType;
 		entityIds = new ArrayList<Integer>();
+		prevEvaluatedLines = new ArrayList<String>();
 		id = 0;
 	}
 
@@ -94,6 +97,37 @@ public class HUD
 		}
 		
 		return equal;
+	}
+	
+	public void evaluateLines()//evaluate placeholders in lines for this HUD
+	{
+		evaluatedLines = (ArrayList<String>) hudType.getLines(player);
+	}
+	
+	public void updatePrevEvaluatedLines()
+	{
+		prevEvaluatedLines = new ArrayList<String>(evaluatedLines);
+	}
+	
+	public boolean lineChanged(int i)
+	{
+		boolean changed = false;
+		
+		if(i >= prevEvaluatedLines.size())//this case shoudn't happen, but ya know, safety first
+		{
+			changed  = true;
+		}
+		else if(!prevEvaluatedLines.get(i).equals(evaluatedLines.get(i)))
+		{
+			changed = true;
+		}		
+		
+		return changed;
+	}
+	
+	public ArrayList<String> getEvaluatedLines()
+	{
+		return evaluatedLines;
 	}
 	
 	public Location calculateNewLocation(int rowIndex, double distance, double deltaTheta, double offsetAngle)

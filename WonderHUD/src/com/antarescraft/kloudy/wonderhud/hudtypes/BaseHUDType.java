@@ -12,7 +12,7 @@ public abstract class BaseHUDType
 	protected int width;
 	protected int height;
 	protected String location;
-	protected List<String> lines;
+	protected List<String> lines;//unevaluated lines, containing the placeholder strings
 	
 	public BaseHUDType(boolean active, int duration, int startTime, String location)
 	{
