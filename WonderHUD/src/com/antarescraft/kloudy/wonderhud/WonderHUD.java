@@ -43,7 +43,6 @@ public class WonderHUD extends JavaPlugin
 		getCommand("wh").setExecutor(new OnCommandEvent());
 		getServer().getPluginManager().registerEvents(new OnPlayerJoinEvent(), this);
 		getServer().getPluginManager().registerEvents(new OnPlayerQuitEvent(), this);
-		//getServer().getPluginManager().registerEvents(new OnMoveEvent(), this);
 		getServer().getPluginManager().registerEvents(new OnPlayerDeathEvent(), this);
 		getServer().getPluginManager().registerEvents(new OnPlayerRespawnEvent(), this);
 		getServer().getPluginManager().registerEvents(new OnPlayerChangeWorldEvent(), this);
@@ -65,27 +64,32 @@ public class WonderHUD extends JavaPlugin
 		}
 	}
 	
-	//WonderHUD
 	public static void initPlayerHUD(Player player)
 	{
 		PlayerHUD playerHUD = new PlayerHUD(player);
 		
 		for(BaseHUDType hudType : HUDObjects)
 		{
-			HUD hud = new HUD(player, hudType);
-			
-			HUDStartTimer timer = new HUDStartTimer(playerHUD, hud);
-
-			ArrayList<HUDStartTimer> startTimers = WonderHUD.HUDStartTimers.get(player.getUniqueId());
-			if(startTimers == null)
+			String showPermission = hudType.getShowPermission();
+			String hidePermission = hudType.getHidePermission();
+			if((showPermission.equals("") || player.hasPermission(showPermission)) && 
+					(hidePermission.equals("") || !player.hasPermission(hidePermission)))
 			{
-				startTimers = new ArrayList<HUDStartTimer>();
-				WonderHUD.HUDStartTimers.put(player.getUniqueId(), startTimers);
+				HUD hud = new HUD(player, hudType);
+				
+				HUDStartTimer timer = new HUDStartTimer(playerHUD, hud);
+
+				ArrayList<HUDStartTimer> startTimers = WonderHUD.HUDStartTimers.get(player.getUniqueId());
+				if(startTimers == null)
+				{
+					startTimers = new ArrayList<HUDStartTimer>();
+					WonderHUD.HUDStartTimers.put(player.getUniqueId(), startTimers);
+				}
+				
+				startTimers.add(timer);
+				
+				timer.start(hudType.getStartTime());
 			}
-			
-			startTimers.add(timer);
-			
-			timer.start(hudType.getStartTime());
 		}
 		
 		WonderHUD.PlayerHUDs.put(player.getUniqueId(), playerHUD);

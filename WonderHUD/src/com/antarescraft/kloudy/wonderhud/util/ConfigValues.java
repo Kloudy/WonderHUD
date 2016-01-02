@@ -31,6 +31,8 @@ public class ConfigValues
 	private static final String BASIC_HUD = "basic-hud";
 	private static final String IMAGE_HUD = "image-hud";
 	private static final String MAX_PLAYERS = "max-players";
+	private static final String SHOW_PERMISSION = "show-permission";
+	private static final String HIDE_PERMISSION = "hide-permission";
 	
 	public static void reloadConfig()
 	{
@@ -92,13 +94,15 @@ public class ConfigValues
 					int duration = hudObject.getInt(HUD_DURATION, -1);
 					int startTime = hudObject.getInt(HUD_START_TIME, 0);
 					String location = hudObject.getString(HUD_LOCATION, "top");
+					String showPermission = hudObject.getString(SHOW_PERMISSION, "");
+					String hidePermission = hudObject.getString(HIDE_PERMISSION, "");
 					
 					if(type.equals(BASIC_HUD))
 					{
 						List<String> lines = hudObject.getStringList(HUD_LINES);
 						if(lines != null)
 						{
-							BasicHUD basicHUD = new BasicHUD(lines, active, duration, startTime, location);
+							BasicHUD basicHUD = new BasicHUD(lines, active, duration, startTime, location, showPermission, hidePermission);
 							hudObjects.add(basicHUD);
 						}
 					}
@@ -110,7 +114,7 @@ public class ConfigValues
 							int width = hudObject.getInt(HUD_WIDTH, 40);
 							int height = hudObject.getInt(HUD_HEIGHT, 20);
 							
-							ImageHUD imageHUD = new ImageHUD(imageSource, width, height, active, duration, startTime, location);
+							ImageHUD imageHUD = new ImageHUD(imageSource, width, height, active, duration, startTime, location, showPermission, hidePermission);
 							hudObjects.add(imageHUD);
 						}
 					}

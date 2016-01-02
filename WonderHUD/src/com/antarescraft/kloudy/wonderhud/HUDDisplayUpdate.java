@@ -29,6 +29,11 @@ public class HUDDisplayUpdate extends BukkitRunnable
 			{
 				for(HUD hud : playerHUD.getHUDs())
 				{
+					if(playerHUD.moved())
+					{
+						FakeDisplay.updateDisplayLocation(hud);
+					}
+					
 					hud.evaluateLines();//evaluate placeholders
 					
 					for(int i = 0; i < hud.getHudType().getLines(hud.getPlayer()).size(); i++)
@@ -61,17 +66,6 @@ public class HUDDisplayUpdate extends BukkitRunnable
 			{
 				ImageHUD imageHUD = (ImageHUD)hudType;
 				imageHUD.incrementCurrentFrame();
-			}
-		}
-			
-		for(PlayerHUD playerHUD : WonderHUD.PlayerHUDs.values())
-		{
-			for(HUD hud : playerHUD.getHUDs())
-			{
-				if(playerHUD.moved())
-				{
-					FakeDisplay.updateDisplayLocation(hud);
-				}
 			}
 		}
 	}

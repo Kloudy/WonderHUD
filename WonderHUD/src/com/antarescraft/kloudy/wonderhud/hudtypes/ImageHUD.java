@@ -14,9 +14,10 @@ public class ImageHUD extends BaseHUDType
 	private int width;
 	private double distance, deltaTheta, offsetAngle;
 	
-	public ImageHUD(String imageSource, int width, int height, boolean active, int duration, int startTime, String location)
+	public ImageHUD(String imageSource, int width, int height, boolean active, int duration, int startTime, String location,
+			String showPermission, String hidePermission)
 	{
-		super(active, duration, startTime, location);
+		super(active, duration, startTime, location, showPermission, hidePermission);
 		
 		this.imageSource = imageSource;
 		this.width = width;

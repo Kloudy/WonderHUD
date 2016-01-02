@@ -7,9 +7,20 @@ max-players: 35 #Maximum number of players who can see the HUD at a time. Used t
 
 hud-objects:
 
-  welcome-text:    # Format for defining a basic-hud (A HUD with just lines of text)
+  example-welcome-text:    # Format for defining a basic-hud (A HUD with just lines of text)
+    show-permission: example.permission  #A player will see the HUD if they have the show-permission specified. Leave blank or don't specify if you want all players to see the HUD (a player must still have permission wh.see to see the HUD)
     type: basic-hud                 # Specify the type as basic-hud
     lines:                               # Lines of text to be displayed on the HUD (Use any valid placeholders supported by PlaceholderAPI)
       - "Welcome |gray||bold|%player_name%|reset|, to |gold||bold|%player_server%"
       - "Current Position: x: %player_x%, y: %player_y%, z: %player_z%"
+      - "You |green||bold| DO |reset| have permission: |gold|example.permission"
+      - "|green||bold|Players Online|reset|: %server_online%"
+      
+  example-welcome-text2:
+    type: basic-hud
+    hide-permission: example.permission  #A player won't see this HUD if they have the hide-permission, all other players will see the HUD (a player must still have permission wh.see to see the HUD)
+    lines:                               # Lines of text to be displayed on the HUD (Use any valid placeholders supported by PlaceholderAPI)
+      - "Welcome |gray||bold|%player_name%|reset|, to |gold||bold|%player_server%"
+      - "Current Position: x: %player_x%, y: %player_y%, z: %player_z%"
+      - "You |red||bold|DO NOT|reset| have permission: |gold|example.permission"
       - "|green||bold|Players Online|reset|: %server_online%"

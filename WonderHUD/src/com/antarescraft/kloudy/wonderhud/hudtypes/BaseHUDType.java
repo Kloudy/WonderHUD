@@ -11,15 +11,19 @@ public abstract class BaseHUDType
 	protected int startTime;
 	protected int width;
 	protected int height;
+	protected String showPermission;
+	protected String hidePermission;
 	protected String location;
 	protected List<String> lines;//unevaluated lines, containing the placeholder strings
 	
-	public BaseHUDType(boolean active, int duration, int startTime, String location)
+	public BaseHUDType(boolean active, int duration, int startTime, String location, String showPermission, String hidePermission)
 	{
 		this.active = active;
 		this.duration = duration;
 		this.startTime = startTime;
 		this.location = location;
+		this.showPermission = showPermission;
+		this.hidePermission = hidePermission;
 	}
 	
 	public abstract List<String> getLines(Player player);
@@ -47,5 +51,15 @@ public abstract class BaseHUDType
 	public String getLocation()
 	{
 		return location;
+	}
+	
+	public String getShowPermission()
+	{
+		return showPermission;
+	}
+	
+	public String getHidePermission()
+	{
+		return hidePermission;
 	}
 }

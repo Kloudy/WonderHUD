@@ -11,9 +11,10 @@ import com.antarescraft.kloudy.wonderhud.util.CustomPlaceholders;
 
 public class BasicHUD extends BaseHUDType
 {
-	public BasicHUD(List<String> lines, boolean active, int duration, int startTime, String location)
+	public BasicHUD(List<String> lines, boolean active, int duration, int startTime, String location,
+			String showPermission, String hidePermission)
 	{
-		super(active, duration, startTime, location);
+		super(active, duration, startTime, location, showPermission, hidePermission);
 		
 		this.lines = lines;
 	}
