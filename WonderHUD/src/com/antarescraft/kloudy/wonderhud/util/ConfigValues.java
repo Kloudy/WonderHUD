@@ -25,6 +25,7 @@ public class ConfigValues
 	private static final String HUD_START_TIME = "start-time";
 	private static final String HUD_LOCATION = "location";
 	private static final String HUD_LINES = "lines";
+	private static final String LOOP_AFTER = "loop-after";
 	private static final String HUD_IMAGE = "image-src";
 	private static final String HUD_WIDTH = "width";
 	private static final String HUD_HEIGHT = "height";
@@ -33,6 +34,7 @@ public class ConfigValues
 	private static final String MAX_PLAYERS = "max-players";
 	private static final String SHOW_PERMISSION = "show-permission";
 	private static final String HIDE_PERMISSION = "hide-permission";
+	public static final String RESTART_HUDS = "restart-huds-on-world-change";
 	
 	public static void reloadConfig()
 	{
@@ -74,6 +76,13 @@ public class ConfigValues
 		return config.getString(HUD_HIDE_ALL_TEXT, null);
 	}
 	
+	public static boolean getRestartHUDsOnWorldChange()
+	{
+		FileConfiguration config = WonderHUD.plugin.getConfig();
+		
+		return config.getBoolean(RESTART_HUDS, true);
+	}
+	
 	public static ArrayList<BaseHUDType> getHUDObjects()
 	{
 		FileConfiguration config = WonderHUD.plugin.getConfig();
@@ -96,13 +105,14 @@ public class ConfigValues
 					String location = hudObject.getString(HUD_LOCATION, "top");
 					String showPermission = hudObject.getString(SHOW_PERMISSION, "");
 					String hidePermission = hudObject.getString(HIDE_PERMISSION, "");
+					boolean loopAfter = hudObject.getBoolean(LOOP_AFTER, false);
 					
 					if(type.equals(BASIC_HUD))
 					{
 						List<String> lines = hudObject.getStringList(HUD_LINES);
 						if(lines != null)
 						{
-							BasicHUD basicHUD = new BasicHUD(lines, active, duration, startTime, location, showPermission, hidePermission);
+							BasicHUD basicHUD = new BasicHUD(lines, active, duration, startTime, location, showPermission, hidePermission, loopAfter);
 							hudObjects.add(basicHUD);
 						}
 					}
@@ -114,7 +124,7 @@ public class ConfigValues
 							int width = hudObject.getInt(HUD_WIDTH, 40);
 							int height = hudObject.getInt(HUD_HEIGHT, 20);
 							
-							ImageHUD imageHUD = new ImageHUD(imageSource, width, height, active, duration, startTime, location, showPermission, hidePermission);
+							ImageHUD imageHUD = new ImageHUD(imageSource, width, height, active, duration, startTime, location, showPermission, hidePermission, loopAfter);
 							hudObjects.add(imageHUD);
 						}
 					}

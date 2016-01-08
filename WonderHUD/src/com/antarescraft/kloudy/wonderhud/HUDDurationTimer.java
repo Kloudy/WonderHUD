@@ -2,6 +2,7 @@ package com.antarescraft.kloudy.wonderhud;
 
 import java.util.ArrayList;
 
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class HUDDurationTimer extends BukkitRunnable
@@ -61,6 +62,17 @@ public class HUDDurationTimer extends BukkitRunnable
 		if(durationTimers != null)
 		{
 			durationTimers.remove(this);
+		}
+		
+		if(hud.getHudType().getLoopAfter())//loop the hud sequence again
+		{
+			Player player = playerHUD.getPlayer();
+			WonderHUD.cancelTimers(player);
+			playerHUD.destroy();
+			if(player.hasPermission("wh.see"))
+			{
+				WonderHUD.initPlayerHUD(player);
+			}
 		}
 	}
 }

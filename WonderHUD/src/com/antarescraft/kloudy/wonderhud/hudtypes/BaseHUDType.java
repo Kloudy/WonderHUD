@@ -15,8 +15,9 @@ public abstract class BaseHUDType
 	protected String hidePermission;
 	protected String location;
 	protected List<String> lines;//unevaluated lines, containing the placeholder strings
+	protected boolean loopAfter;
 	
-	public BaseHUDType(boolean active, int duration, int startTime, String location, String showPermission, String hidePermission)
+	public BaseHUDType(boolean active, int duration, int startTime, String location, String showPermission, String hidePermission, boolean loopAfter)
 	{
 		this.active = active;
 		this.duration = duration;
@@ -24,6 +25,7 @@ public abstract class BaseHUDType
 		this.location = location;
 		this.showPermission = showPermission;
 		this.hidePermission = hidePermission;
+		this.loopAfter = loopAfter;
 	}
 	
 	public abstract List<String> getLines(Player player);
@@ -61,5 +63,10 @@ public abstract class BaseHUDType
 	public String getHidePermission()
 	{
 		return hidePermission;
+	}
+	
+	public boolean getLoopAfter()
+	{
+		return loopAfter;
 	}
 }

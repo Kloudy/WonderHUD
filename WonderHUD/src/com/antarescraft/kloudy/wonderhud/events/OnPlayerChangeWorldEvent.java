@@ -7,6 +7,7 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 
 import com.antarescraft.kloudy.wonderhud.PlayerHUD;
 import com.antarescraft.kloudy.wonderhud.WonderHUD;
+import com.antarescraft.kloudy.wonderhud.util.ConfigValues;
 
 public class OnPlayerChangeWorldEvent implements Listener
 {
@@ -22,7 +23,7 @@ public class OnPlayerChangeWorldEvent implements Listener
 			
 			playerHUD.destroy();
 			
-			if(player.hasPermission("wh.see"))
+			if(player.hasPermission("wh.see") && ConfigValues.getRestartHUDsOnWorldChange())
 			{
 				WonderHUD.initPlayerHUD(player);
 			}

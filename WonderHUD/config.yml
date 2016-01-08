@@ -2,25 +2,39 @@ hud-show-text: "HUD now visible"
 hud-hide-text: "HUD now hidden"
 hud-show-all-text: "HUDs now visible to all players"
 hud-hide-all-text: "HUDs now hidden from all players"
-
-max-players: 35 #Maximum number of players who can see the HUD at a time. Used to lessen the load caused when the plugin displays HUDs to many players at once
+restart-huds-on-world-change: true #Specify (true or false) if the HUD sequence should restart when a player changes worlds
+max-players: 35 #Maximum number of players who can see their HUDs at a time. Used to lessen the load caused when the plugin displays HUDs to many players at once
 
 hud-objects:
 
   example-welcome-text:    # Format for defining a basic-hud (A HUD with just lines of text)
     show-permission: example.permission  #A player will see the HUD if they have the show-permission specified. Leave blank or don't specify if you want all players to see the HUD (a player must still have permission wh.see to see the HUD)
     type: basic-hud                 # Specify the type as basic-hud
+    start-time: 0                     # How many seconds after login to display the HUD to the player
+    duration: 5                       #The duration this HUD will stay visible
     lines:                               # Lines of text to be displayed on the HUD (Use any valid placeholders supported by PlaceholderAPI)
       - "Welcome |gray||bold|%player_name%|reset|, to |gold||bold|%player_server%"
       - "Current Position: x: %player_x%, y: %player_y%, z: %player_z%"
       - "You |green||bold| DO |reset| have permission: |gold|example.permission"
       - "|green||bold|Players Online|reset|: %server_online%"
-      
+
   example-welcome-text2:
     type: basic-hud
+    start-time: 0
+    duration: 5
     hide-permission: example.permission  #A player won't see this HUD if they have the hide-permission, all other players will see the HUD (a player must still have permission wh.see to see the HUD)
     lines:                               # Lines of text to be displayed on the HUD (Use any valid placeholders supported by PlaceholderAPI)
       - "Welcome |gray||bold|%player_name%|reset|, to |gold||bold|%player_server%"
       - "Current Position: x: %player_x%, y: %player_y%, z: %player_z%"
       - "You |red||bold|DO NOT|reset| have permission: |gold|example.permission"
       - "|green||bold|Players Online|reset|: %server_online%"
+
+  example-welcome-text3:
+    type: basic-hud
+    start-time: 5
+    duration: 8
+    loop-after: true #Start the sequence of HUDs over after this HUD finishes displaying
+    lines:
+      - "This is the final HUD to be displayed before looping again"
+      - "If you have any questions about configuring WonderHUD"
+      - "send me a private message (|dark_red||bold|Kloudy|reset|) on |gold||bold|spigotmc.org"
