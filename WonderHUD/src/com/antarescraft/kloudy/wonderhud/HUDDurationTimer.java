@@ -71,7 +71,7 @@ public class HUDDurationTimer extends BukkitRunnable
 			playerHUD.destroy();
 			if(player.hasPermission("wh.see"))
 			{
-				WonderHUD.initPlayerHUD(player);
+				WonderHUD.initPlayerJoinHUD(player);
 			}
 		}
 	}

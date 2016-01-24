@@ -25,7 +25,7 @@ public class OnPlayerChangeWorldEvent implements Listener
 			
 			if(player.hasPermission("wh.see") && ConfigValues.getRestartHUDsOnWorldChange())
 			{
-				WonderHUD.initPlayerHUD(player);
+				WonderHUD.initPlayerJoinHUD(player);
 			}
 		}
 	}

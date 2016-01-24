@@ -18,6 +18,5 @@ public class OnPlayerQuitEvent implements Listener
 
 		WonderHUD.NextEntityId.remove(player.getUniqueId());
 		WonderHUD.PlayerHUDs.remove(player.getUniqueId());
-		WonderHUD.PlayerNoShows.remove(player.getUniqueId());
 	}
 }

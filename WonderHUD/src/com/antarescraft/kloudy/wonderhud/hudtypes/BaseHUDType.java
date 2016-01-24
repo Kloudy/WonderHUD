@@ -28,6 +28,12 @@ public abstract class BaseHUDType
 		this.loopAfter = loopAfter;
 	}
 	
+	public static enum HUDTypes
+	{
+		JOIN_ACTIVATABLE,
+		REGION_ACTIVATABLE
+	}
+	
 	public abstract List<String> getLines(Player player);
 	public abstract int getWidth();
 	public abstract int getHeight();

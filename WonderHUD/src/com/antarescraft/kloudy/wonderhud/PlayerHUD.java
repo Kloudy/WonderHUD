@@ -11,13 +11,20 @@ public class PlayerHUD
 	private ArrayList<HUD> HUDs;
 	private int nextId;
 	private Location prevLocation;
+	private boolean isRegionHUD;
 	
 	public PlayerHUD(Player player)
+	{
+		this(player, false);
+	}
+	
+	public PlayerHUD(Player player, boolean isRegionHUD)
 	{
 		this.player = player;
 		HUDs = new ArrayList<HUD>();
 		prevLocation = player.getLocation();
 		nextId = 0;
+		this.isRegionHUD = isRegionHUD;
 	}
 	
 	public void destroy()
@@ -26,6 +33,10 @@ public class PlayerHUD
 		{
 			hud.destroyDisplay();
 		}
+		
+		WonderHUD.cancelTimers(player);
+		WonderHUD.PlayerHUDs.remove(player.getUniqueId());
+		WonderHUD.NextEntityId.remove(player.getUniqueId());
 	}
 	
 	public Player getPlayer()
@@ -47,6 +58,11 @@ public class PlayerHUD
 	public Location getPrevLocation()
 	{
 		return prevLocation;
+	}
+	
+	public boolean isRegionHUD()
+	{
+		return isRegionHUD;
 	}
 	
 	public boolean moved()

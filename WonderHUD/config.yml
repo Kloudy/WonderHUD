@@ -3,37 +3,105 @@ hud-hide-text: "HUD now hidden"
 hud-show-all-text: "HUDs now visible to all players"
 hud-hide-all-text: "HUDs now hidden from all players"
 restart-huds-on-world-change: true #Specify (true or false) if the HUD sequence should restart when a player changes worlds
+restart-join-huds-on-region-exit: true #Specify (true or false) if the join HUD sequence should restart when a player leaves a region hud region
 max-players: 35 #Maximum number of players who can see their HUDs at a time. Used to lessen the load caused when the plugin displays HUDs to many players at once
 
-hud-objects:
+hud-objects: #Define all of your huds inside of the 'hud-objects' section
 
-  example-welcome-text:    # Format for defining a basic-hud (A HUD with just lines of text)
-    show-permission: example.permission  #A player will see the HUD if they have the show-permission specified. Leave blank or don't specify if you want all players to see the HUD (a player must still have permission wh.see to see the HUD)
-    type: basic-hud                 # Specify the type as basic-hud
-    start-time: 0                     # How many seconds after login to display the HUD to the player
-    duration: 5                       #The duration this HUD will stay visible
-    lines:                               # Lines of text to be displayed on the HUD (Use any valid placeholders supported by PlaceholderAPI)
+  #REGION HUD EXAMPLES - These HUDs will be displayed when the player is inside the specified WorldGuard region
+  #Note: If a player is already viewing a HUD when they enter into the region it will be removed and the region HUD will be displayed instead
+
+  ##Region Text HUD Example (A HUD that displays text when a player is in the specified WorldGuard region)##
+
+  example-region-hud1:                                             #The name of the HUD (Can be anything so long as it is unique with respect to all the other HUDs you define)
+    type: region-text-hud                                            #Specify type as 'region-text-hud'
+    region-name: example_region                              #The id of the WorldGuard region that this HUD will display in
+    show-permission: example.permission                   #A player will see this HUD if they have the show-permission specified. Leave blank or don't specify if you want all players to see the HUD (a player must still have permission wh.see to see the HUD)
+    duration: 5                                                          #This HUD will display for 5 seconds
+    start-time: 0                                                        #This HUD will play immediately when the player enters the region
+    lines:                                                                  #Lines of text to be displayed on this HUD
+      - "Welcome |aqua||bold|%player_name%|reset|, you have entered |green|'example_region'"
+      - "You see this HUD because you |green||bold|DO|reset| have permission: |gold|example.permission"
+
+  ##Region Text HUD Example 2##
+
+  example-region-hud2:
+    type: region-text-hud                                     #Specify type as 'region-text-hud'
+    region-name: example_region                       #The id of the WorldGuard region that this HUD will display in
+    start-time: 0                                                 #This HUD will display immediated after the player joins to server
+    duration: 5                                                   #This HUD will display for 5 seconds
+    hide-permission: example.permission             #A player won't see this HUD if they have the hide-permission, all other players will see the HUD (a player must still have permission wh.see to see the HUD)
+    lines:                                                          # Lines of text to be displayed on the HUD (Use any valid placeholders supported by PlaceholderAPI)
+      - "Welcome |aqua||bold|%player_name%|reset|, you have entered |green|'example_region'"
+      - "You see this HUD because you |dark_red||bold|DO NOT|reset| have permission: |gold|example.permission"
+      
+  ##Region Image HUD Example (A HUD that displays an image or animated gif when the player is in the specified WorldGuard region)##
+
+  example-image-region-hud:
+    type: region-image-hud                                        #Specify type as 'region-image-hud'
+    region-name: example_region                              #The id of the WorldGuard region that this HUD will display in 
+    width: 100                                                          #Width of the image
+    height: 25                                                          #Height of the image
+    duration: 8                                                         #This HUD will display for 8 seconds
+    start-time: 5                                                       #This HUD will start 5 seconds after the player has entered the region
+    image-src: WonderHUD.gif                                    #name of the image located in the /plugins/WonderHUD/images folder
+
+  ##Region Text HUD Example 2##
+
+  example-region-hud3:
+    type: region-text-hud
+    region-name: example_region            #The id of the WorldGuard region that this HUD will display in 
+    start-time: 13                                      #This HUD starts displaying 13 seconds after the player enters the region
+    duration: 8                                        #This HUD will display for 8 seconds
+    loop-after: true                                  #Specify 'loop-after' to be true if you want the sequence to start over after this HUD finishes displaying
+    lines:                                                #Lines of text to be displayed on this HUD
+      - "After this HUD finishes displaying, the region HUD sequence will start over"
+
+  #END REGION HUD EXAMPLES#
+
+   ##Join HUD Examples - These HUDs begin sequencing when a player joins the server##
+
+  ## Format for defining a basic-hud (A HUD with just lines of text)##
+
+  example-welcome-text:                                  
+    show-permission: example.permission          #A player will see this HUD if they have the show-permission specified. Leave blank or don't specify if you want all players to see the HUD (a player must still have permission wh.see to see the HUD)
+    type: basic-hud                                           # Specify the type as basic-hud (A HUD containing only text)
+    start-time: 0                                               # How many seconds after login to display the HUD to the player
+    duration: 5                                                 #The duration this HUD will stay visible
+    lines:                                                         # Lines of text to be displayed on the HUD (Use any valid placeholders supported by PlaceholderAPI)
       - "Welcome |gray||bold|%player_name%|reset|, to |gold||bold|%player_server%"
       - "Current Position: x: %player_x%, y: %player_y%, z: %player_z%"
-      - "You |green||bold| DO |reset| have permission: |gold|example.permission"
+      - "You |green||bold|DO|reset| have permission: |gold|example.permission"
       - "|green||bold|Players Online|reset|: %server_online%"
+
+  ##basic-hud example 2##
 
   example-welcome-text2:
-    type: basic-hud
-    start-time: 0
-    duration: 5
-    hide-permission: example.permission  #A player won't see this HUD if they have the hide-permission, all other players will see the HUD (a player must still have permission wh.see to see the HUD)
-    lines:                               # Lines of text to be displayed on the HUD (Use any valid placeholders supported by PlaceholderAPI)
+    type: basic-hud                                             #Specify type as 'basic-hud'
+    start-time: 0                                                 #This HUD will display immediated after the player joins to server
+    duration: 5                                                   #This HUD will display for 5 seconds
+    hide-permission: example.permission             #A player won't see this HUD if they have the hide-permission, all other players will see the HUD (a player must still have permission wh.see to see the HUD)
+    lines:                                                          # Lines of text to be displayed on the HUD (Use any valid placeholders supported by PlaceholderAPI)
       - "Welcome |gray||bold|%player_name%|reset|, to |gold||bold|%player_server%"
       - "Current Position: x: %player_x%, y: %player_y%, z: %player_z%"
-      - "You |red||bold|DO NOT|reset| have permission: |gold|example.permission"
+      - "You |dark_red||bold|DO NOT|reset| have permission: |gold|example.permission"
       - "|green||bold|Players Online|reset|: %server_online%"
+
+  ##Format for creating an image HUD##
+
+  example-image-hud:
+    type: image-hud                                          #Specify the type to be 'image-hud' 
+    start-time: 5                                                #This HUD will display 5 seconds after the player logs in
+    duration: 8                                                 #This HUD will display for 8 seconds
+    image-src: WonderHUD.gif                            #name of the image file located in the /plugins/WonderHUD/images folder
+    width: 100                                                  #width of the image
+    height: 25                                                  #height of the image
 
   example-welcome-text3:
     type: basic-hud
-    start-time: 5
-    duration: 8
-    loop-after: true #Start the sequence of HUDs over after this HUD finishes displaying
+    start-time: 13                                               #This HUD will display 13 seconds after the player logs in
+    duration: 8                                                 #This HUD will display for 8 seconds
+    loop-after: true                                            #Specify 'loop-after' as true if you want the sequence to start over after this HUD finishes displaying
     lines:
       - "This is the final HUD to be displayed before looping again"
       - "If you have any questions about configuring WonderHUD"

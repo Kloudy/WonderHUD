@@ -5,13 +5,25 @@ import java.util.ArrayList;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import com.antarescraft.kloudy.wonderhud.events.CommandEvent;
+
+
 public class MessageManager 
 {
 	public static final int ELEMENTS_PER_PAGE = 10;
 	
-	public static String helpString(String command, String description)
+	public static String helpString(String command, String args, String description)
 	{
-		return ChatColor.GOLD + "/" + command + " - " + ChatColor.AQUA + description;
+		return ChatColor.GOLD + "/" + CommandEvent.baseCommand + " " + command + " " + args + " - " + ChatColor.AQUA + description;
+	}
+	
+	public static void invalidArgs(CommandSender sender, String command, String args, String description)
+	{
+		String helpString = helpString(command, args, description);
+		String message = ChatColor.RED + "Incorrect parameters for this command. Usage: \n";
+		message += helpString;
+		
+		sender.sendMessage(message);
 	}
 	
 	public static void error(CommandSender sender, String message)

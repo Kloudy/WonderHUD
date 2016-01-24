@@ -25,8 +25,6 @@ public class OnPlayerDeathEvent implements Listener
 			{
 				playerHUD.destroy();
 			}
-			
-			WonderHUD.PlayerHUDs.remove(player.getUniqueId());
 		}
 	}
 }

@@ -5,5 +5,7 @@
 	<classpathentry kind="lib" path="C:/Users/timke_000/Dropbox/spigot 1.8 server/plugins/ProtocolLib.jar"/>
 	<classpathentry kind="lib" path="C:/Users/timke_000/Dropbox/spigot 1.8 server/spigot-1.8.jar"/>
 	<classpathentry kind="lib" path="C:/Users/timke_000/Dropbox/spigot 1.8 server/plugins/PlaceholderAPI.jar"/>
+	<classpathentry kind="lib" path="C:/Users/timke_000/Dropbox/spigot 1.8 server/plugins/worldguard-6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/timke_000/Dropbox/spigot 1.8 server/plugins/WorldEdit.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

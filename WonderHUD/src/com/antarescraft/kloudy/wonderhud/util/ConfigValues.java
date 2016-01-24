@@ -9,8 +9,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import com.antarescraft.kloudy.wonderhud.WonderHUD;
 import com.antarescraft.kloudy.wonderhud.hudtypes.BaseHUDType;
-import com.antarescraft.kloudy.wonderhud.hudtypes.BasicHUD;
-import com.antarescraft.kloudy.wonderhud.hudtypes.ImageHUD;
+import com.antarescraft.kloudy.wonderhud.hudtypes.JoinImageHUD;
+import com.antarescraft.kloudy.wonderhud.hudtypes.JoinTextHUD;
+import com.antarescraft.kloudy.wonderhud.hudtypes.RegionImageHUD;
+import com.antarescraft.kloudy.wonderhud.hudtypes.RegionTextHUD;
 
 public class ConfigValues 
 {
@@ -31,10 +33,14 @@ public class ConfigValues
 	private static final String HUD_HEIGHT = "height";
 	private static final String BASIC_HUD = "basic-hud";
 	private static final String IMAGE_HUD = "image-hud";
+	private static final String REGION_TEXT_HUD = "region-text-hud";
+	private static final String REGION_IMAGE_HUD = "region-image-hud";
 	private static final String MAX_PLAYERS = "max-players";
 	private static final String SHOW_PERMISSION = "show-permission";
 	private static final String HIDE_PERMISSION = "hide-permission";
-	public static final String RESTART_HUDS = "restart-huds-on-world-change";
+	private static final String RESTART_HUDS = "restart-huds-on-world-change";
+	private static final String REGION_NAME = "region-name";
+	private static final String RESTART_HUDS_REGION_EXIT = "restart-join-huds-on-region-exit";
 	
 	public static void reloadConfig()
 	{
@@ -83,10 +89,17 @@ public class ConfigValues
 		return config.getBoolean(RESTART_HUDS, true);
 	}
 	
-	public static ArrayList<BaseHUDType> getHUDObjects()
+	public static boolean getRestartHUDsOnRegionExit()
 	{
 		FileConfiguration config = WonderHUD.plugin.getConfig();
-		ArrayList<BaseHUDType> hudObjects = new ArrayList<BaseHUDType>();
+		
+		return config.getBoolean(RESTART_HUDS_REGION_EXIT, true);
+	}
+	
+	public static void loadHUDObjects()
+	{
+		FileConfiguration config = WonderHUD.plugin.getConfig();
+		WonderHUD.HUDObjects = new ArrayList<BaseHUDType>();
 		
 		Set<String> hudObjectKeys = config.getConfigurationSection(HUD_OBJECTS).getKeys(false);
 		
@@ -106,14 +119,15 @@ public class ConfigValues
 					String showPermission = hudObject.getString(SHOW_PERMISSION, "");
 					String hidePermission = hudObject.getString(HIDE_PERMISSION, "");
 					boolean loopAfter = hudObject.getBoolean(LOOP_AFTER, false);
+					String regionName = hudObject.getString(REGION_NAME, null);
 					
 					if(type.equals(BASIC_HUD))
 					{
 						List<String> lines = hudObject.getStringList(HUD_LINES);
 						if(lines != null)
 						{
-							BasicHUD basicHUD = new BasicHUD(lines, active, duration, startTime, location, showPermission, hidePermission, loopAfter);
-							hudObjects.add(basicHUD);
+							JoinTextHUD basicHUD = new JoinTextHUD(lines, active, duration, startTime, location, showPermission, hidePermission, loopAfter);
+							WonderHUD.HUDObjects.add(basicHUD);
 						}
 					}
 					else if(type.equals(IMAGE_HUD))
@@ -124,14 +138,37 @@ public class ConfigValues
 							int width = hudObject.getInt(HUD_WIDTH, 40);
 							int height = hudObject.getInt(HUD_HEIGHT, 20);
 							
-							ImageHUD imageHUD = new ImageHUD(imageSource, width, height, active, duration, startTime, location, showPermission, hidePermission, loopAfter);
-							hudObjects.add(imageHUD);
+							JoinImageHUD imageHUD = new JoinImageHUD(imageSource, width, height, active, duration, startTime, location, showPermission, hidePermission, loopAfter);
+							WonderHUD.HUDObjects.add(imageHUD);
+						}
+					}
+					else if(type.equals(REGION_TEXT_HUD))
+					{
+						List<String> lines = hudObject.getStringList(HUD_LINES);
+						if(lines != null && regionName != null)
+						{
+							RegionTextHUD regionTextHUD = new RegionTextHUD(lines, active, duration, startTime, location, showPermission, hidePermission, loopAfter, regionName);
+							WonderHUD.HUDObjects.add(regionTextHUD);
+							WonderHUD.regionNames.add(regionName);
+							WonderHUD.hasRegionHUDs = true;
+						}
+					}
+					else if(type.equals(REGION_IMAGE_HUD))
+					{
+						String imageSource = hudObject.getString(HUD_IMAGE);
+						if(imageSource != null && regionName != null)
+						{
+							int width = hudObject.getInt(HUD_WIDTH, 40);
+							int height = hudObject.getInt(HUD_HEIGHT, 20);
+							
+							RegionImageHUD regionImageHUD = new RegionImageHUD(imageSource, width, height, active, duration, startTime, location, showPermission, hidePermission, loopAfter, regionName);
+							WonderHUD.HUDObjects.add(regionImageHUD);
+							WonderHUD.regionNames.add(regionName);
+							WonderHUD.hasRegionHUDs = true;
 						}
 					}
 				}
 			}
 		}
-
-		return hudObjects;
 	}
 }

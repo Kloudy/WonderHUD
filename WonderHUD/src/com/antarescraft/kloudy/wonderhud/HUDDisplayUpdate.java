@@ -2,11 +2,13 @@ package com.antarescraft.kloudy.wonderhud;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.antarescraft.kloudy.wonderhud.hudtypes.BaseHUDType;
 import com.antarescraft.kloudy.wonderhud.hudtypes.ImageHUD;
+import com.antarescraft.kloudy.wonderhud.hudtypes.RegionImageHUD;
 import com.antarescraft.kloudy.wonderhud.protocol.FakeDisplay;
 
 public class HUDDisplayUpdate extends BukkitRunnable
@@ -21,10 +23,20 @@ public class HUDDisplayUpdate extends BukkitRunnable
 	@Override
 	public void run()
 	{	
+		//check if player walks into a regionHUD region
+		if(WonderHUD.WorldGuard != null)
+		{
+			for(Player player : Bukkit.getOnlinePlayers())
+			{
+				WonderHUD.checkRegionHUD(player);
+			}
+		}
+		
 		ArrayList<Player> removePlayers = new ArrayList<Player>();
 		for(PlayerHUD playerHUD : WonderHUD.PlayerHUDs.values())
 		{
 			Player player = playerHUD.getPlayer();
+			
 			if(player.hasPermission("wh.see"))
 			{
 				for(HUD hud : playerHUD.getHUDs())
@@ -62,7 +74,7 @@ public class HUDDisplayUpdate extends BukkitRunnable
 		//increment all ImageHUD currentFrames
 		for(BaseHUDType hudType : WonderHUD.HUDObjects)
 		{
-			if(hudType instanceof ImageHUD)
+			if(hudType instanceof ImageHUD || hudType instanceof RegionImageHUD)
 			{
 				ImageHUD imageHUD = (ImageHUD)hudType;
 				imageHUD.incrementCurrentFrame();

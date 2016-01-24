@@ -15,10 +15,10 @@ public class OnPlayerRespawnEvent implements Listener
 	{
 		Player player = event.getPlayer();
 		
-		if(player.hasPermission("wh.see") && !WonderHUD.PlayerNoShows.containsKey(player.getUniqueId()) &&
+		if(player.hasPermission("wh.see") && !WonderHUD.PlayerNoShows.contains(player.getUniqueId()) &&
 				WonderHUD.getNumPlayersViewing() < ConfigValues.getMaxPlayers())
 		{
-			WonderHUD.initPlayerHUD(player);
+			WonderHUD.initPlayerJoinHUD(player);
 		}
 	}
 }
