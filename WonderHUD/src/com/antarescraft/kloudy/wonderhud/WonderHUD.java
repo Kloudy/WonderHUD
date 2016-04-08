@@ -33,6 +33,7 @@ public class WonderHUD extends JavaPlugin
 	public static boolean hasRegionHUDs;
 	public static ArrayList<String> regionNames;//list for quickly looking up regionNames
 	public static WorldGuardPlugin WorldGuard;
+	public static String MinecraftVersion;
 
 	@Override
 	public void onEnable()
@@ -46,6 +47,9 @@ public class WonderHUD extends JavaPlugin
 		hasRegionHUDs = false;
 		regionNames = new ArrayList<String>();
 		WorldGuard = getWorldGuard();
+		
+		System.out.println(Bukkit.getVersion());
+		MinecraftVersion = Bukkit.getVersion().split(" ")[1];
 
 		saveDefaultConfig();
 		
