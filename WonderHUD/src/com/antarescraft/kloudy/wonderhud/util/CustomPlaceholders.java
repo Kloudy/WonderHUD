@@ -4,28 +4,28 @@ public class CustomPlaceholders
 {
 	public static String setCustomPlaceholders(String string)
 	{
-		string = string.replace("|black|", "ง0");
-		string = string.replace("|dark_blue|", "ง1");
-		string = string.replace("|dark_green|", "ง2");
-		string = string.replace("|dark_aqua|", "ง3");
-		string = string.replace("|dark_red|", "ง4");
-		string = string.replace("|dark_purple|", "ง5");
-		string = string.replace("|gold|", "ง6");
-		string = string.replace("|gray|", "ง7");
-		string = string.replace("|dark_gray|", "ง8");
-		string = string.replace("|blue|", "ง9");
-		string = string.replace("|green|", "งa");
-		string = string.replace("|aqua|", "งb");
-		string = string.replace("|red|", "งc");
-		string = string.replace("|light_purple|", "งd");
-		string = string.replace("|yellow|", "งe");
-		string = string.replace("|white|", "งf");
-		string = string.replace("|bold|", "งl");
-		string = string.replace("|strikethrough|", "งm");
-		string = string.replace("|obfuscated|", "งk");
-		string = string.replace("|underline|", "งn");
-		string = string.replace("|italic|", "งo");
-		string = string.replace("|reset|", "งr");
+		string = string.replace("|black|", "ยง0");
+		string = string.replace("|dark_blue|", "ยง1");
+		string = string.replace("|dark_green|", "ยง2");
+		string = string.replace("|dark_aqua|", "ยง3");
+		string = string.replace("|dark_red|", "ยง4");
+		string = string.replace("|dark_purple|", "ยง5");
+		string = string.replace("|gold|", "ยง6");
+		string = string.replace("|gray|", "ยง7");
+		string = string.replace("|dark_gray|", "ยง8");
+		string = string.replace("|blue|", "ยง9");
+		string = string.replace("|green|", "ยงa");
+		string = string.replace("|aqua|", "ยงb");
+		string = string.replace("|red|", "ยงc");
+		string = string.replace("|light_purple|", "ยงd");
+		string = string.replace("|yellow|", "ยงe");
+		string = string.replace("|white|", "ยงf");
+		string = string.replace("|bold|", "ยงl");
+		string = string.replace("|strikethrough|", "ยงm");
+		string = string.replace("|obfuscated|", "ยงk");
+		string = string.replace("|underline|", "ยงn");
+		string = string.replace("|italic|", "ยงo");
+		string = string.replace("|reset|", "ยงr");
 
 		return string;
 	}
