@@ -36,7 +36,6 @@ public class PlayerHUD
 		
 		WonderHUD.cancelTimers(player);
 		WonderHUD.PlayerHUDs.remove(player.getUniqueId());
-		WonderHUD.NextEntityId.remove(player.getUniqueId());
 	}
 	
 	public Player getPlayer()

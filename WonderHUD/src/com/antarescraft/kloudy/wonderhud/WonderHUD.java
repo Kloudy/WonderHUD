@@ -24,7 +24,6 @@ public class WonderHUD extends JavaPlugin
 {
 	public static JavaPlugin plugin;
 	public static Hashtable<UUID, PlayerHUD> PlayerHUDs;
-	public static Hashtable<UUID, Integer> NextEntityId;//<player_uuid, next available entity id number>
 	public static ArrayList<UUID> PlayerNoShows;
 	public static Hashtable<String, String[][]> ImageLines;
 	public static ArrayList<BaseHUDType> HUDObjects;
@@ -33,13 +32,11 @@ public class WonderHUD extends JavaPlugin
 	public static boolean hasRegionHUDs;
 	public static ArrayList<String> regionNames;//list for quickly looking up regionNames
 	public static WorldGuardPlugin WorldGuard;
-	public static String MinecraftVersion;
 
 	@Override
 	public void onEnable()
 	{
 		plugin = this;
-		NextEntityId = new Hashtable<UUID, Integer>();
 		PlayerHUDs = new Hashtable<UUID, PlayerHUD>();
 		ImageLines = new Hashtable<String, String[][]>();
 		HUDStartTimers = new Hashtable<UUID, ArrayList<HUDStartTimer>>();
@@ -48,9 +45,6 @@ public class WonderHUD extends JavaPlugin
 		regionNames = new ArrayList<String>();
 		WorldGuard = getWorldGuard();
 		
-		System.out.println(Bukkit.getVersion());
-		MinecraftVersion = Bukkit.getVersion().split(" ")[1];
-
 		saveDefaultConfig();
 		
 		ConfigValues.loadHUDObjects();
@@ -222,6 +216,7 @@ public class WonderHUD extends JavaPlugin
 			if(WonderHUD.hasRegionHUDs)
 			{
 				//get all regions that exist at the player's location
+				WorldGuard.getRegionManager(player.getWorld()).getApplicableRegions(player.getLocation());
 				ApplicableRegionSet regionSet = WorldGuard.getRegionManager(player.getWorld()).getApplicableRegions(player.getLocation());
 				if(regionSet.size() > 0)
 				{

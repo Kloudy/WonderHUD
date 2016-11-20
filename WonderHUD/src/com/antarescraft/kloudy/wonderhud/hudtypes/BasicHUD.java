@@ -3,6 +3,7 @@ package com.antarescraft.kloudy.wonderhud.hudtypes;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -58,6 +59,7 @@ public abstract class BasicHUD extends BaseHUDType
 		{	
 			String str = PlaceholderAPI.setPlaceholders(player, line);
 			str = CustomPlaceholders.setCustomPlaceholders(str);
+			str = ChatColor.translateAlternateColorCodes('&', str);
 			
 			evaluatedLines.add(str);
 		}

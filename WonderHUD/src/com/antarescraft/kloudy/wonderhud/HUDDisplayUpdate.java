@@ -3,13 +3,14 @@ package com.antarescraft.kloudy.wonderhud;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import com.antarescraft.kloudy.plugincore.protocol.PacketManager;
 import com.antarescraft.kloudy.wonderhud.hudtypes.BaseHUDType;
 import com.antarescraft.kloudy.wonderhud.hudtypes.ImageHUD;
 import com.antarescraft.kloudy.wonderhud.hudtypes.RegionImageHUD;
-import com.antarescraft.kloudy.wonderhud.protocol.FakeDisplay;
 
 public class HUDDisplayUpdate extends BukkitRunnable
 {
@@ -43,7 +44,11 @@ public class HUDDisplayUpdate extends BukkitRunnable
 				{
 					if(playerHUD.moved())
 					{
-						FakeDisplay.updateDisplayLocation(hud);
+						for(int i = 0; i < hud.getHudType().getLines(player).size(); i++)
+						{
+							Location location = hud.calculateNewLocation(i, hud.getHudType().getDistance(), hud.getHudType().getDeltaTheta(), hud.getHudType().getOffsetAngle());
+							PacketManager.updateEntityLocation(player, hud.getEntityIds().get(i), location);
+						}
 					}
 					
 					hud.evaluateLines();//evaluate placeholders
@@ -52,7 +57,7 @@ public class HUDDisplayUpdate extends BukkitRunnable
 					{
 						if(hud.lineChanged(i))//don't send update packet if the line hasn't changed
 						{
-							FakeDisplay.updateDisplayLine(hud, i, hud.getEvaluatedLines().get(i));
+							PacketManager.updateEntityText(player, hud.getEntityIds().get(i), hud.getEvaluatedLines().get(i));
 						}
 					}
 					

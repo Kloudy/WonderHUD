@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import com.antarescraft.kloudy.plugincore.protocol.PacketManager;
 import com.antarescraft.kloudy.wonderhud.WonderHUD;
 
 public class OnPlayerQuitEvent implements Listener
@@ -16,7 +17,8 @@ public class OnPlayerQuitEvent implements Listener
 		
 		WonderHUD.cancelTimers(player);
 
-		WonderHUD.NextEntityId.remove(player.getUniqueId());
 		WonderHUD.PlayerHUDs.remove(player.getUniqueId());
+		
+		PacketManager.resetPlayerNextAvailableEntityId(player);
 	}
 }

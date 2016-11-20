@@ -3,20 +3,19 @@ package com.antarescraft.kloudy.wonderhud;
 import java.util.ArrayList;
 
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
+import com.antarescraft.kloudy.plugincore.protocol.PacketManager;
 import com.antarescraft.kloudy.wonderhud.hudtypes.BaseHUDType;
-import com.antarescraft.kloudy.wonderhud.protocol.FakeDisplay;
 
 /**
  * Represents a single HUD Display in the player's view
  */
 
 public class HUD
-{
-	private final int STARTING_ENTITY_ID = -10000;
-	
+{	
 	private Player player;
 	private ArrayList<Integer> entityIds;
 	private BaseHUDType hudType;
@@ -35,25 +34,22 @@ public class HUD
 
 	public void spawnDisplay()
 	{
-		for(int i = 0; i < hudType.getHeight(); i++)
+		for(int i = 0; i < hudType.getLines(player).size(); i++)
 		{
-			if(!WonderHUD.NextEntityId.containsKey(player.getUniqueId()))
-			{
-				WonderHUD.NextEntityId.put(player.getUniqueId(), STARTING_ENTITY_ID);
-			}
-			
-			int entityId = WonderHUD.NextEntityId.get(player.getUniqueId());
-			WonderHUD.NextEntityId.put(player.getUniqueId(), entityId - 1);
-			
+			Location lineLocation = calculateNewLocation(i, hudType.getDistance(), hudType.getDeltaTheta(), hudType.getOffsetAngle());
+			int entityId = PacketManager.spawnEntity(EntityType.ARMOR_STAND, player, lineLocation, hudType.getLines(player).get(i), true);
 			entityIds.add(entityId);
 		}
-		
-		FakeDisplay.spawnFakeDisplay(this);
 	}
 	
 	public void destroyDisplay()
 	{
-		FakeDisplay.destroyDisplay(this);
+		int[] entityIdsArray = new int[entityIds.size()];
+		for(int i = 0; i < entityIds.size(); i++)
+		{
+			entityIdsArray[i] = entityIds.get(i);
+		}
+		PacketManager.destroyEntities(player, entityIdsArray);
 	}
 	
 	public Player getPlayer()

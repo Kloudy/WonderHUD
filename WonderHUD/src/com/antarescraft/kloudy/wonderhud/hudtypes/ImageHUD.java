@@ -42,7 +42,7 @@ public class ImageHUD extends BaseHUDType
 			}
 		}
 		
-		if(lines.size() > 0 && lines.get(0).equals("§4§lThere was an error when processing your image"))
+		if(lines.size() > 0 && lines.get(0).equals("Â§4Â§lThere was an error when processing your image"))
 		{
 			distance = 8;
 			deltaTheta = Math.PI / 118;
