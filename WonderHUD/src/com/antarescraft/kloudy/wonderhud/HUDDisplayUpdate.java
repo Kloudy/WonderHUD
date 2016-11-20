@@ -7,7 +7,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.antarescraft.kloudy.plugincore.protocol.PacketManager;
 import com.antarescraft.kloudy.wonderhud.hudtypes.BaseHUDType;
 import com.antarescraft.kloudy.wonderhud.hudtypes.ImageHUD;
 import com.antarescraft.kloudy.wonderhud.hudtypes.RegionImageHUD;
@@ -47,7 +46,7 @@ public class HUDDisplayUpdate extends BukkitRunnable
 						for(int i = 0; i < hud.getHudType().getLines(player).size(); i++)
 						{
 							Location location = hud.calculateNewLocation(i, hud.getHudType().getDistance(), hud.getHudType().getDeltaTheta(), hud.getHudType().getOffsetAngle());
-							PacketManager.updateEntityLocation(player, hud.getEntityIds().get(i), location);
+							WonderHUD.packetManager.updateEntityLocation(player, hud.getEntityIds().get(i), location);
 						}
 					}
 					
@@ -57,7 +56,7 @@ public class HUDDisplayUpdate extends BukkitRunnable
 					{
 						if(hud.lineChanged(i))//don't send update packet if the line hasn't changed
 						{
-							PacketManager.updateEntityText(player, hud.getEntityIds().get(i), hud.getEvaluatedLines().get(i));
+							WonderHUD.packetManager.updateEntityText(player, hud.getEntityIds().get(i), hud.getEvaluatedLines().get(i));
 						}
 					}
 					

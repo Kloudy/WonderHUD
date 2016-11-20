@@ -42,11 +42,6 @@
 	    <scope>provided</scope>
 	</dependency>
 	<dependency>
-	    <groupId>org.json</groupId>
-	    <artifactId>json</artifactId>
-	    <version>20160212</version>
-	</dependency>
-	<dependency>
 		<groupId>com.antarescraft.kloudy.plugincore</groupId>
 		<artifactId>KloudyPluginCore</artifactId>
 		<version>1.0</version>
@@ -100,13 +95,14 @@
               <relocations>
                 <relocation>
                   <pattern>com.antarescraft.kloudy.plugincore</pattern>
-                  <shadedPattern>com.antarescraft.kloudy.hologui.plugincore</shadedPattern>
-                </relocation>
-                <relocation>
-                	<pattern>org.json</pattern>
-                	<shadedPattern>com.antarescraft.kloudy.hologui.plugincore.json</shadedPattern>
+                  <shadedPattern>com.antarescraft.kloudy.wonderhud.plugincore</shadedPattern>
                 </relocation>
               </relocations>
+              <artifactSet>
+                <excludes>
+                  <exclude>org.json</exclude>
+                </excludes>
+              </artifactSet>
               <outputDirectory>D:\Tim\Spigot 1.11 Server\plugins</outputDirectory>
             </configuration>
           </execution>

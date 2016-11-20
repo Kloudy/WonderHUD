@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.antarescraft.kloudy.plugincore.protocol.PacketManager;
 import com.antarescraft.kloudy.wonderhud.events.*;
 import com.antarescraft.kloudy.wonderhud.hudtypes.BaseHUDType;
 import com.antarescraft.kloudy.wonderhud.hudtypes.ImageHUD;
@@ -32,6 +33,8 @@ public class WonderHUD extends JavaPlugin
 	public static boolean hasRegionHUDs;
 	public static ArrayList<String> regionNames;//list for quickly looking up regionNames
 	public static WorldGuardPlugin WorldGuard;
+	
+	public static PacketManager packetManager;
 
 	@Override
 	public void onEnable()
@@ -46,6 +49,8 @@ public class WonderHUD extends JavaPlugin
 		WorldGuard = getWorldGuard();
 		
 		saveDefaultConfig();
+		
+		packetManager = PacketManager.getInstance(-100, -4900);
 		
 		ConfigValues.loadHUDObjects();
 		

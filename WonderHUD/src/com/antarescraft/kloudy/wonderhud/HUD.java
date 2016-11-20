@@ -7,7 +7,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import com.antarescraft.kloudy.plugincore.protocol.PacketManager;
 import com.antarescraft.kloudy.wonderhud.hudtypes.BaseHUDType;
 
 /**
@@ -37,7 +36,7 @@ public class HUD
 		for(int i = 0; i < hudType.getLines(player).size(); i++)
 		{
 			Location lineLocation = calculateNewLocation(i, hudType.getDistance(), hudType.getDeltaTheta(), hudType.getOffsetAngle());
-			int entityId = PacketManager.spawnEntity(EntityType.ARMOR_STAND, player, lineLocation, hudType.getLines(player).get(i), true);
+			int entityId = WonderHUD.packetManager.spawnEntity(EntityType.ARMOR_STAND, player, lineLocation, hudType.getLines(player).get(i), true);
 			entityIds.add(entityId);
 		}
 	}
@@ -49,7 +48,8 @@ public class HUD
 		{
 			entityIdsArray[i] = entityIds.get(i);
 		}
-		PacketManager.destroyEntities(player, entityIdsArray);
+		WonderHUD.packetManager.destroyEntities(player, entityIdsArray);
+		WonderHUD.packetManager.setNextAvailableEntityId(player, entityIdsArray[0]);
 	}
 	
 	public Player getPlayer()
